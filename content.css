@@ -1,0 +1,36 @@
+/* Primer CSS variables, so GitHub's light and dark themes both apply. */
+#ghf-folders { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--borderColor-muted, #d1d9e0b3); font-size: 14px; }
+#ghf-folders.ghf-busy { opacity: 0.6; pointer-events: none; }
+#ghf-folders ul { list-style: none; margin: 0; padding: 0; }
+#ghf-folders .ghf-head-actions { display: flex; align-items: center; gap: 4px; }
+#ghf-folders ul ul { padding-left: 12px; }
+#ghf-folders .ghf-head { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px; font-size: 12px; font-weight: 600; color: var(--fgColor-muted, #59636e); }
+#ghf-folders .ghf-row { display: flex; align-items: center; gap: 6px; padding: 6px 8px; border-radius: 6px; color: var(--fgColor-default, #1f2328); cursor: default; list-style: none; }
+#ghf-folders summary.ghf-row { cursor: pointer; }
+#ghf-folders summary.ghf-row::-webkit-details-marker { display: none; }
+#ghf-folders .ghf-row:hover { background: var(--bgColor-neutral-muted, #818b981f); }
+#ghf-folders .ghf-row[aria-current] { background: var(--bgColor-neutral-muted, #818b981f); font-weight: 600; }
+#ghf-folders .ghf-row.ghf-drop { outline: 2px dashed var(--borderColor-accent-emphasis, #0969da); outline-offset: -2px; }
+#ghf-folders .ghf-chevron { width: 16px; margin-left: -4px; flex: none; text-align: center; color: var(--fgColor-muted, #59636e); transition: transform 0.1s; }
+#ghf-folders details[open] > summary .ghf-chevron { transform: rotate(90deg); }
+#ghf-folders .ghf-icon { display: flex; flex: none; fill: var(--fgColor-muted, #59636e); }
+#ghf-folders .ghf-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: inherit; text-decoration: none; }
+/* The whole row is the link; the chevron (open/close) and the action buttons sit above it. */
+#ghf-folders .ghf-row { position: relative; }
+#ghf-folders .ghf-name::after { content: ''; position: absolute; inset: 0; border-radius: 6px; }
+#ghf-folders summary .ghf-chevron, #ghf-folders .ghf-actions, #ghf-folders .ghf-confirm { position: relative; z-index: 1; }
+#ghf-folders .ghf-count { font-size: 12px; color: var(--fgColor-muted, #59636e); }
+#ghf-folders .ghf-actions { display: none; }
+#ghf-folders .ghf-row:hover .ghf-actions, #ghf-folders .ghf-row:focus-within .ghf-actions { display: flex; }
+#ghf-folders button { border: 0; background: none; padding: 0 4px; font: inherit; line-height: 1; color: var(--fgColor-muted, #59636e); cursor: pointer; }
+#ghf-folders button:hover, #ghf-folders button:focus-visible { color: var(--fgColor-accent, #0969da); }
+#ghf-folders .ghf-input { flex: 1; min-width: 0; padding: 2px 6px; font: inherit; color: var(--fgColor-default, #1f2328); background: var(--bgColor-default, #fff); border: 1px solid var(--borderColor-accent-emphasis, #0969da); border-radius: 6px; }
+#ghf-folders .ghf-confirm { display: flex; align-items: center; gap: 2px; font-size: 12px; white-space: nowrap; color: var(--fgColor-danger, #d1242f); }
+#ghf-folders .ghf-confirm button:first-of-type { font-weight: 600; color: var(--fgColor-danger, #d1242f); }
+#ghf-folders .ghf-note { padding: 0 8px; font-size: 12px; color: var(--fgColor-muted, #59636e); }
+#ghf-folders .ghf-note p { margin: 4px 0; }
+#ghf-folders .ghf-note a { color: var(--fgColor-accent, #0969da); }
+#ghf-folders .ghf-code { font-size: 13px; font-weight: 600; color: var(--fgColor-default, #1f2328); }
+#ghf-folders button.ghf-signin { width: 100%; margin: 4px 0; padding: 5px 12px; border: 1px solid var(--button-default-borderColor-rest, #d1d9e0); border-radius: 6px; background: var(--button-default-bgColor-rest, #f6f8fa); color: var(--button-default-fgColor-rest, #25292e); font-weight: 500; }
+#ghf-folders button.ghf-signin:hover { background: var(--button-default-bgColor-hover, #eff2f5); color: var(--button-default-fgColor-rest, #25292e); }
+#ghf-folders .ghf-error { margin: 4px 8px; font-size: 12px; color: var(--fgColor-danger, #d1242f); }

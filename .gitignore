@@ -1,0 +1,4 @@
+dist/
+# Chrome Web Store signing key: never commit it
+*.pem
+*.crx
