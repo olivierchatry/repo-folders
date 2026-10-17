@@ -1,9 +1,10 @@
 const $ = id => document.getElementById(id)
-$('version').textContent = chrome.runtime.getManifest().version
+$('version').textContent = 'v' + chrome.runtime.getManifest().version
 
 function show(signedIn) {
   $('signed-in').hidden = !signedIn
   $('signed-out').hidden = signedIn
+  $('revoke').hidden = !signedIn
 }
 
 chrome.storage.local.get('auth').then(({ auth }) => show(!!auth))
