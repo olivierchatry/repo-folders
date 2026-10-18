@@ -1,7 +1,7 @@
 // Service worker: holds the GitHub sign-in and makes every GitHub call. Content scripts run inside
 // github.com's renderer, so they never see a token: they get a few requests that only read and change
 // the org's `folder` property, and every request is checked against the page that sent it.
-importScripts('folders.js')
+if (typeof importScripts === 'function') importScripts('folders.js') // Firefox loads it as a background script instead
 
 const PROP = 'folder'
 const API = 'https://api.github.com'
@@ -11,7 +11,12 @@ const ORG_PAGE = /^\/orgs\/([A-Za-z0-9-]{1,39})\/repositories\/?$/
 const REPO = /^[A-Za-z0-9._-]{1,100}$/
 
 // Tokens and caches live in storage.local, which content scripts can read unless told otherwise.
-const lock = () => chrome.storage.local.setAccessLevel({ accessLevel: 'TRUSTED_CONTEXTS' }).catch(() => {})
+// ponytail: browsers without setAccessLevel (some Firefox versions) skip the lock; content.js never reads tokens anyway
+function lock() {
+  try {
+    chrome.storage.local.setAccessLevel?.({ accessLevel: 'TRUSTED_CONTEXTS' })?.catch(() => {})
+  } catch {}
+}
 lock()
 chrome.runtime.onStartup.addListener(lock)
 chrome.runtime.onInstalled.addListener(() => {
@@ -25,7 +30,9 @@ chrome.runtime.onMessage.addListener((msg, sender, reply) => {
 })
 
 async function handle(msg, sender) {
-  const org = sender.id === chrome.runtime.id && sender.origin === 'https://github.com' && sender.url && new URL(sender.url).pathname.match(ORG_PAGE)?.[1]
+  const url = sender.url && new URL(sender.url)
+  const origin = sender.origin ?? url?.origin // Firefox has no sender.origin
+  const org = sender.id === chrome.runtime.id && origin === 'https://github.com' && url?.origin === origin && url.pathname.match(ORG_PAGE)?.[1]
   if (!org || msg?.org !== org) throw new Error('Refused: requests must come from that organization\'s Repositories page.')
   switch (msg.op) {
     case 'cached': return (await auth()) ? (await chrome.storage.local.get(cacheKey(org)))[cacheKey(org)] || null : null

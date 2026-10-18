@@ -38,4 +38,20 @@ function buildTree(paths) {
   return root.children
 }
 
-if (typeof module === 'object') module.exports = { cleanPath, within, moved, sorted, addFolder, renameFolder, removeFolder, buildTree }
+// Personal accounts have no custom properties: the same operations apply to { paths, repos: [{ name, folder }] },
+// which only lists filed repositories.
+function personalChange({ paths, repos }, msg) {
+  switch (msg.op) {
+    case 'create': {
+      const path = cleanPath(msg.parent ? `${msg.parent}/${msg.name}` : msg.name)
+      if (!path) throw new Error('Folder names must be printable ASCII without double quotes.')
+      return { paths: addFolder(paths, path), repos }
+    }
+    case 'rename': return { paths: renameFolder(paths, msg.from, msg.to), repos: repos.map(r => ({ ...r, folder: moved(r.folder, msg.from, msg.to) })) }
+    case 'remove': return { paths: removeFolder(paths, msg.path), repos: repos.filter(r => !within(r.folder, msg.path)) }
+    case 'move': return { paths, repos: [...repos.filter(r => r.name !== msg.repo), ...(msg.folder ? [{ name: msg.repo, folder: msg.folder }] : [])] }
+  }
+  throw new Error('Unknown request.')
+}
+
+if (typeof module === 'object') module.exports = { cleanPath, within, moved, sorted, addFolder, renameFolder, removeFolder, buildTree, personalChange }

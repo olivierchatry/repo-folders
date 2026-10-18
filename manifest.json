@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Repo Folders for GitHub",
-  "version": "1.0.0",
-  "description": "Organize an organization's GitHub repositories into folders that every member of the organization sees.",
+  "version": "1.1.4",
+  "description": "Organize your GitHub repositories into folders: shared with your organization, or private for your own account.",
   "homepage_url": "https://github.com/olivierchatry/repo-folders",
   "icons": {
     "16": "icons/icon16.png",

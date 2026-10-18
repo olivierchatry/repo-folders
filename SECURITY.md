@@ -14,6 +14,7 @@ Use GitHub's **Report a vulnerability** (Security tab of this repository) rather
   pages, never see it and cannot read the extension's storage. They can only ask the service worker to read the
   `folder` property or change it, and every request is checked against the page that sent it.
 - It talks only to `github.com` and `api.github.com`. No server, no analytics.
+- Your own account's folders don't use GitHub or the app at all: they live in the browser's synced storage.
 
 ## Know the limits
 
@@ -25,6 +26,9 @@ Use GitHub's **Report a vulnerability** (Security tab of this repository) rather
   github.com/login/device. Entering it hands them your token.
 - Signing out in the popup forgets the token on this computer. To revoke it on GitHub, use
   **Settings → Applications → Authorized GitHub Apps**. Tokens last 8 hours; the refresh token lasts 6 months.
+- Firefox: storage locking (`setAccessLevel`) is not available in every version. Where it isn't, a content script
+  could technically read the extension's storage; ours never reads tokens, and the token still never reaches
+  web pages.
 - The app has no private key and no client secret, and must keep it that way: whoever controls the app's owner
   account could otherwise act on every organization that installed it. Organization owners can uninstall the app
   at any time.

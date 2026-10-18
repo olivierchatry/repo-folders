@@ -8,6 +8,9 @@ Repo Folders for GitHub is a browser extension that shows an organization's repo
   extension storage on your computer only, where web pages (github.com included) cannot read it.
 - A copy of each organization's folder tree and repository names, cached in the same storage so the sidebar
   appears instantly. Signing out from the popup deletes the token and these copies.
+- Your own account's folders (folder names and the names of the repositories in them), kept in your browser's
+  synced storage. Your browser's sync (Chrome Sync, Firefox Sync) carries them to your other devices; they are
+  never sent to GitHub or anyone else.
 
 **Where data goes**
 

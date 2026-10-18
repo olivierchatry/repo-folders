@@ -1,7 +1,12 @@
 /* Primer CSS variables, so GitHub's light and dark themes both apply. */
 #ghf-folders { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--borderColor-muted, #d1d9e0b3); font-size: 14px; }
 #ghf-folders.ghf-busy { opacity: 0.6; pointer-events: none; }
+/* Your own profile: a box above the repository list. */
+#ghf-folders.ghf-personal { margin: 16px 0; padding: 4px 8px 8px; border: 1px solid var(--borderColor-default, #d1d9e0); border-radius: 6px; }
 #ghf-folders ul { list-style: none; margin: 0; padding: 0; }
+/* The folder list scrolls by itself (sized by content.js in an organization's sidebar). */
+#ghf-folders > ul { overflow-y: auto; overscroll-behavior: contain; max-height: max(160px, calc(100vh - var(--ghf-top, 480px) - var(--ghf-bottom, 56px))); }
+#ghf-folders.ghf-personal > ul { max-height: 60vh; }
 #ghf-folders .ghf-head-actions { display: flex; align-items: center; gap: 4px; }
 #ghf-folders ul ul { padding-left: 12px; }
 #ghf-folders .ghf-head { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px; font-size: 12px; font-weight: 600; color: var(--fgColor-muted, #59636e); }
